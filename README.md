@@ -1,4 +1,9 @@
 # consolidadom7
+Esto es para ir anotando lo especifico que hice para este proyecto
+
+cree el error 404 e hice todas las conexxiones de rutas
+
+no sé porque el navbar tapa lo que escribo en las otras vue
 
 ## Project setup
 ```
