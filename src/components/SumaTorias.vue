@@ -1,20 +1,18 @@
 <template>
-    <div>
-        <h1>Resumen</h1>
-
+    <div class="suma">
         <div class="totales uno"> <v-icon>mdi-account-multiple</v-icon> Total de alumnos permitidos:
             <strong>{{ totalAlumnosPermitidos }}</strong> alumnos
         </div>
         <div class="totales dos"><v-icon>mdi-account-check</v-icon> Cantidad total de alumnos inscritos: <strong>{{
             totalAlumnosInscritos }}</strong> alumnos</div>
-        <div class="totales tres"><v-icon>mdi-account-plus</v-icon>Cantidad total de cupos restantes: <strong>{{
+        <div class="totales tres"><v-icon>mdi-account-plus</v-icon> Cantidad total de cupos restantes: <strong>{{
             totalCuposRestantes }}</strong> alumnos</div>
         <div class="totales cuatro"><v-icon>mdi-circle-off-outline</v-icon>Cantidad total de cursos terminados:
-            <strong>{{ totalCursosTerminados }}</strong>cursos
+            <strong>{{ totalCursosTerminados }} </strong> cursos
         </div>
-        <div class="totales cinco"><v-icon>mdi-bell-ring</v-icon>Cantidad total de cursos activos: <strong>{{
+        <div class="totales cinco"><v-icon>mdi-bell-ring</v-icon> Cantidad total de cursos activos: <strong>{{
             totalCursosActivos }}</strong> cursos</div>
-        <div class="totales seis"><v-icon>mdi-bell-ring</v-icon>Cantidad total de cursos: <strong>{{ totalCursos
+        <div class="totales seis"><v-icon>mdi-bell-ring</v-icon> Cantidad total de cursos: <strong>{{ totalCursos
                 }}</strong> cursos</div>
 
     </div>
@@ -50,11 +48,14 @@ export default {
 </script>
 
 <style scoped>
+.suma{
+    padding-top: 20px;
+}
 .totales {
     border: 1px solid purple;
     border-radius: 3%;
     margin: 10px;
-    padding-left: 20px;
+    padding: 5px 0 5px 5px;
     color: purple;
 }
 

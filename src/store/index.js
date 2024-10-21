@@ -6,36 +6,32 @@ export default createStore({
     cursos: data.cursos,
   },
   getters: { // se usan para devolver dates en derivados del state. Ejemplo sumatorias, diviciones, nombre completo, etc
-    // Cantidad total de alumnos permitidos
     totalAlumnosPermitidos: (state) => {
       return state.cursos.reduce((total, curso) => total + curso.cupos, 0)
     },
-
-    // Cantidad total de alumnos inscritos
     totalAlumnosInscritos: (state) => {
       return state.cursos.reduce((total, curso) => total + curso.inscritos, 0)
     },
-
-    // Cantidad total de cupos restantes
     totalCuposRestantes: (state) => {
       return state.cursos.reduce((total, curso) => total + (curso.cupos - curso.inscritos), 0)
     },
-
-    // Cantidad total de cursos terminados
     totalCursosTerminados: (state) => {
       return state.cursos.filter(curso => curso.completado).length
     },
-
-    // Cantidad total de cursos activos
     totalCursosActivos: (state) => {
       return state.cursos.filter(curso => !curso.completado).length
     },
-
-    // Cantidad total de cursos
     totalCursos: (state) => {
       return state.cursos.length
-    }
+    },
+    // cursosFormateados: (state) => {
+    //   return state.cursos.map(curso => {
+    //     return {...curso, costo: new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(curso.costo)}
+    //   })
+
+    // }
   },
+
   mutations: {
     // Mutación para eliminar un curso por su índice
     DELETE_CURSO(state, index) {
@@ -50,10 +46,11 @@ export default createStore({
       state.cursos.push(nuevoCurso);
     }
   },
+
   actions: {
     // Accion para eliminar un curso invocando la mutacion
     deleteCurso({ commit, state }, item) {
-      console.log(item)
+      // console.log(item)
       const index = state.cursos.findIndex(curso => curso.id === item.id)
       if (index !== -1) {
         commit('DELETE_CURSO', index)
@@ -67,7 +64,14 @@ export default createStore({
       // transformarlo para que los tipos de datos correspondan
       // al modelo del objeto, porque desde el formulario todos
       // llegan como Strings y eso está malo.
-      const cursoNormalizado = {
+      // let terminado = true;
+      
+      if (item.completado != false) {
+      //   terminado = false
+      // } else {
+        item.inscritos = 0
+      }
+      const cursoActualizado = {
         id: Number(item.id),
         img: String(item.img),
         nombre: String(item.nombre),
@@ -79,9 +83,10 @@ export default createStore({
         fecha_registro: String(item.fecha_registro),
         descripcion: String(item.descripcion),
       }
+      console.log('al recibir los datos del formulario todos los datos son de tipo string, por lo que es necesario transformar cada dato a su tipo correcto, ej cupos del curso a number, terminado a boleano. el objeto sgte son los datos del formulario normalizado de esa forma', cursoActualizado)
       const index = state.cursos.findIndex(curso => curso.id === item.id)
       if (index !== -1) {
-        commit('UPDATE_CURSO', { index, cursoActualizado: cursoNormalizado })
+        commit('UPDATE_CURSO', { index, cursoActualizado })
       }
     },
     // Accion para crear un  nuevo curso
@@ -92,7 +97,9 @@ export default createStore({
     createCurso({ commit, state }, item) {
       // Lógica para asignar un nuevo ID
       const nuevoId = Math.max(...state.cursos.map(curso => curso.id)) + 1;
-
+      const nuevoCompletado = false;
+      const fechaActual = new Date();
+      const nuevaFecha_registro = fechaActual.toLocaleDateString();
       const cursoNormalizado = {
         id: nuevoId,  // Aquí asignamos el nuevo ID generado
         img: String(item.img),
@@ -101,11 +108,10 @@ export default createStore({
         duracion: String(item.duracion),
         cupos: Number(item.cupos),
         inscritos: Number(item.inscritos),
-        completado: Boolean(item.completado),
-        fecha_registro: String(item.fecha_registro),
+        completado: nuevoCompletado,
+        fecha_registro: nuevaFecha_registro,
         descripcion: String(item.descripcion),
       };
-
       commit('ADD_CURSO', cursoNormalizado);
     }
   },

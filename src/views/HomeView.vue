@@ -1,8 +1,5 @@
 <template>
-  <!-- <Navbar/> -->
-  <p>Esto es HomeView 1</p>
-  <CursesCard/>
-
+   <CursesCard/>
 </template>
 
 <script>

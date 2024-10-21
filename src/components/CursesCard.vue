@@ -1,7 +1,9 @@
 <template>
-    <h1> Lista de Cursos 1</h1>
+    <h1> Listado de Cursos </h1>
     <v-container class="bg-surface-variant">
         <v-row no-gutters>
+            <!-- ESTA LINEA ES IGUAL A LA SIGUIENTE COMENTADA PERO USA EL GETTER CON EL COSTO FORMATEADO EN VEZ DEL VALOR PURO -->
+            <!-- <v-col v-for="curso in cursosFormateados" :key="curso.id" cols="12" sm="4"> -->
             <v-col v-for="curso in cursos" :key="curso.id" cols="12" sm="4">
                 <v-sheet class="ma-2 pa-2">
                     <v-card class="mx-auto" max-width="300">
@@ -31,7 +33,7 @@
                                     <div class="mb-4">
                                         <div class="font-weight-normal">
                                             Fecha de Registro: <br>
-                                            {{ curso.fecha_resgistro }}
+                                            {{ curso.fecha_registro }}
                                         </div>
                                     </div>
                                 </v-timeline-item>
@@ -67,7 +69,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(['cursos'])
+        ...mapState(['cursos']),
     },
     //methods: {}
     // watch: {},
